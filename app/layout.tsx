@@ -1,49 +1,36 @@
+"use client"
+
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+
+import "@/app/globals.css"
+import { AuthProvider } from "@/components/auth-provider"
 import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from "@/hooks/use-auth"
-
-const inter = Inter({ subsets: ["latin"] })
-
-export const metadata: Metadata = {
-  title: "Dublin Sports Mentor",
-  description: "Connecting sports enthusiasts in Dublin and beyond",
-  manifest: "/manifest.json",
-  themeColor: "#000000",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Dublin Sports Mentor",
-  },
-    generator: 'v0.dev'
-}
+import { useEffect, useState } from "react"
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const [mounted, setMounted] = useState(false)
+
+  // Only run on client-side
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dublin Sports Mentor</title>
+        <meta name="description" content="Dublin Sports Mentor coaching platform" />
+        <meta name="generator" content="v0.dev" />
       </head>
-      <body className={inter.className}>
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-            {children}
-          </ThemeProvider>
-        </AuthProvider>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <AuthProvider>{mounted ? children : null}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
 }
-
-
-
-import './globals.css'

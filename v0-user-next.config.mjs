@@ -1,21 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  swcMinify: true,
+  output: 'export',  // This tells Next.js to export static files
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for static export
   },
-  // For Netlify deployment
-  output: 'export',
-  // Disable server components for static export
-  experimental: {
-    appDir: true,
-  },
-  // Transpile specific modules
-  transpilePackages: ['firebase'],
-  // Disable server components
-  serverComponents: false,
+  // Ensure trailing slashes are handled correctly
+  trailingSlash: true,
 }
 
-export default nextConfig
+export default nextConfig;
 
