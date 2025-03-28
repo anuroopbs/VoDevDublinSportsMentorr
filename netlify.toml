@@ -2,10 +2,19 @@
   command = "npm run build"
   publish = "out"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
+# Handle SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Environment variable configuration
+[build.environment]
+  NEXT_PUBLIC_FIREBASE_API_KEY = "AIzaSyDtEMRM8_s7ggq3jUkY0K6C_wdZNdtBXfs"
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN = "vodublinsportsmentor.firebaseapp.com"
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID = "vodublinsportsmentor"
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET = "vodublinsportsmentor.appspot.com"
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID = "659706804379"
+  NEXT_PUBLIC_FIREBASE_APP_ID = "1:659706804379:web:b64d02718e921455f0ae3e"
+  NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID = "G-0Z0N0W5TM4"
+

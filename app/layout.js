@@ -1,13 +1,12 @@
-import type React from "react"
-import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from "@/hooks/use-auth"
+import { AuthProvider } from "@/components/auth/auth-provider"
+import FirebaseInitClient from "@/components/firebase-init-client"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Dublin Sports Mentor",
   description: "Connecting sports enthusiasts in Dublin and beyond",
   manifest: "/manifest.json",
@@ -17,14 +16,9 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Dublin Sports Mentor",
   },
-    generator: 'v0.dev'
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -34,6 +28,8 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className={inter.className}>
+        {/* Initialize Firebase on the client side */}
+        <FirebaseInitClient />
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
             {children}
@@ -44,6 +40,3 @@ export default function RootLayout({
   )
 }
 
-
-
-import './globals.css'
